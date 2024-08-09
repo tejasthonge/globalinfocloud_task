@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "75558830533",
+    "project_id": "global-infocloud--task",
+    "storage_bucket": "global-infocloud--task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75558830533:android:f9404fbbc3339ba795cbac",
+        "android_client_info": {
+          "package_name": "com.example.globalinfocloud_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqQNpek6lRO7Q7sagHmUcZgmPCi4bbtjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
