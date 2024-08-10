@@ -24,7 +24,7 @@ class RegistrationController {
       Navigator.pushNamed(context, "/login");
     }else{
         var cityState = await ApiService.getCityState(customer.pinCode);
-    if (cityState['city']!.toLowerCase() != customer.city.toLowerCase() || cityState['state']!.toLowerCase() != customer.state.toLowerCase()) {
+    if (cityState['city']!.toLowerCase() != customer.city.toLowerCase() && cityState['state']!.toLowerCase() != customer.state.toLowerCase()) {
       log("City and State do not match with pin code");
       getMySnakBar(context: context, masage: "City and State do not match with pin code");
       throw Exception('City and State do not match with pin code');

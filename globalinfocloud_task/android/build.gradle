@@ -6,13 +6,16 @@ allprojects {
 }
 
 rootProject.buildDir = '../build'
+
 subprojects {
+    // Set each subproject's build directory under the root project's build directory
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(':app')
+
+    // Ensure that the ':app' module is evaluated before other modules
+    evaluationDependsOn(':app')
 }
 
+// Register a clean task to delete the root project's build directory
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
