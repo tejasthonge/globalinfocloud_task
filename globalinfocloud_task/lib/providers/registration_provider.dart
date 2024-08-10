@@ -7,10 +7,9 @@ class RegistrationProvider with ChangeNotifier {
   Future<void> registerCustomer(BuildContext context ,Customer customer) async {
     try {
       await _controller.registerCustomer(context ,customer);
-      // Notify listeners on success
+
       notifyListeners();
     } catch (e) {
-      // Handle error
       print(e);
     }
   }
