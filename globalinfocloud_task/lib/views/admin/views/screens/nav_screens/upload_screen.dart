@@ -73,7 +73,7 @@ class VendorUploadScreen extends StatelessWidget {
                 final productId = Uuid().v4();
                 _vendorProductController.getFormData(productId: productId);
                 await _firebaseFirestore
-                    .collection('Products')
+                    .collection('products')
                     .doc(productId)
                     .set(_vendorProductController.productData);
                     

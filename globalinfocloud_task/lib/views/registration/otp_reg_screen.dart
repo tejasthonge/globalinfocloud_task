@@ -29,7 +29,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   Future storeUsersDataInFirebaseFirestore(
       {required Customer customer, required BuildContext context}) async {
     try {
-      await firestore.collection("customers").doc(auth.currentUser!.uid).set({
+      await firestore.collection("users").doc(auth.currentUser!.uid).set({
         "uid": auth.currentUser!.uid,
         "name": customer.name,
         "contactNumber": customer.contactNumber,

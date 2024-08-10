@@ -6,6 +6,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:globalinfocloud_task/firebase_options.dart';
 import 'package:globalinfocloud_task/views/admin/controllers/vendor_product_conttroller.dart';
 import 'package:globalinfocloud_task/views/admin/main_vendors_screen.dart';
+import 'package:globalinfocloud_task/views/customer/controllers/add_to_cart_controller.dart';
+import 'package:globalinfocloud_task/views/customer/customer_main_screen.dart';
 import 'package:globalinfocloud_task/views/registration/otp_reg_screen.dart';
 import 'package:provider/provider.dart';
 import 'providers/registration_provider.dart';
@@ -15,7 +17,7 @@ import 'providers/customer_provider.dart';
 import 'views/registration/registration_screen.dart';
 import 'views/login/login_screen.dart';
 import 'views/admin/product_master_screen.dart';
-import 'views/customer/product_list_screen.dart';
+
 
 void main() async {
 
@@ -40,9 +42,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => RegistrationProvider()),
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => AdminProvider()),
-        ChangeNotifierProvider(create: (_) => CustomerProvider()),
+        // ChangeNotifierProvider(create: (_) => CustomerProvider()),
         ChangeNotifierProvider(create: (_) => VendorProductController()),
         ChangeNotifierProvider(create: (_) => VendorProductController()),
+        ChangeNotifierProvider(create: (_)=>AddToCartController())
       ],
       child: MaterialApp(
         title: 'Customer App',
@@ -65,9 +68,10 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => RegistrationScreen(),
+          // '/': (context) => CustomerMainScreen(),
           // '/': (context) => MainVendorScreen(),
           '/login': (context) => LoginScreen(),
-          '/customer': (context) => ProductListScreen(),
+
         },
         builder: EasyLoading.init(),
       ),

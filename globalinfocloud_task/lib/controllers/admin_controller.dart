@@ -1,32 +1,32 @@
-import '../models/product.dart';
-import '../models/order.dart';
+// import '../models/product.dart';
 
-class AdminController {
-  List<Product> _products = [];
-  List<Order> _orders = [];
 
-  void addProduct(Product product) {
-    _products.add(product);
-    // Implement save to database logic
-  }
+// class AdminController {
+//   List<Product> _products = [];
+//   List<Order> _orders = [];
 
-  void editProduct(Product product) {
-    // Implement edit product logic
-  }
+//   void addProduct(Product product) {
+//     _products.add(product);
+//     // Implement save to database logic
+//   }
 
-  List<Product> getProducts() {
-    return _products;
-  }
+//   void editProduct(Product product) {
+//     // Implement edit product logic
+//   }
 
-  List<Order> getOrders() {
-    return _orders;
-  }
+//   List<Product> getProducts() {
+//     return _products;
+//   }
 
-  void acceptOrder(Order order) {
-    // Implement accept order logic
-  }
+//   List<Order> getOrders() {
+//     return _orders;
+//   }
 
-  void rejectOrder(Order order) {
-    // Implement reject order logic
-  }
-}
+//   void acceptOrder(Order order) {
+//     // Implement accept order logic
+//   }
+
+//   void rejectOrder(Order order) {
+//     // Implement reject order logic
+//   }
+// }

@@ -15,7 +15,7 @@ class LoginController {
     try {
       // Look up the customer by contact number
       QuerySnapshot querySnapshot = await firestore
-          .collection("customers")
+          .collection("users")
           .where("contactNumber", isEqualTo: contactNumber)
           .get();
 

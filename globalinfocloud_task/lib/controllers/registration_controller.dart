@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:globalinfocloud_task/utils/constants.dart';
 import 'package:globalinfocloud_task/utils/widget_comman.dart';
 import 'package:globalinfocloud_task/views/registration/otp_reg_screen.dart';
 import '../models/customer.dart';
@@ -17,7 +18,7 @@ class RegistrationController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> registerCustomer(BuildContext context, Customer customer) async {
-    // Validate pin code and city
+
     if(await isAlreadyRegistered(phoneNumber: customer.contactNumber)){
       getMySnakBar(context: context, masage: "Your Mobile Number already registered");
       Navigator.pushNamed(context, "/login");
@@ -62,14 +63,15 @@ class RegistrationController {
   }
 
 Future<bool> isAlreadyRegistered({required String phoneNumber}) async {
+
     try {
-      // Query the "customers" collection where the contact number matches
+
       QuerySnapshot querySnapshot = await _firestore
-          .collection("customers")
+          .collection("users")
           .where("contactNumber", isEqualTo: phoneNumber)
           .get();
 
-      // Check if any documents were returned
+
       return querySnapshot.docs.isNotEmpty;
     } catch (e) {
       print("Error checking registration status: $e");

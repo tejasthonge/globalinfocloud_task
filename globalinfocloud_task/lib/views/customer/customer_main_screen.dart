@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:globalinfocloud_task/views/customer/nav/account_screen.dart';
+import 'package:globalinfocloud_task/views/customer/nav/cart_screen.dart';
+import 'package:globalinfocloud_task/views/customer/nav/customer_home_screen.dart';
 
 class CustomerMainScreen extends StatefulWidget {
   const CustomerMainScreen({super.key});
@@ -13,7 +16,9 @@ class _CustomerMainScreenState extends State<CustomerMainScreen> {
    int _pageIndex =0;
 
    List<Widget> _pages = [
-    // HomeScreen(),
+    CousomerHomeScreen(),
+    CartScreen(),
+    AccountScreen(),
     // CategoryScreen(),
     // StoreScreen(),
     // CartScreen(),
@@ -39,29 +44,15 @@ class _CustomerMainScreenState extends State<CustomerMainScreen> {
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.home),
           label: "HOME"),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            "assets/icons/explore.svg",
-            // width: 20,
-
-          ),
-          label: "CATEGORIES"),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            "assets/icons/shop.svg"
-          ),
-          label: "STORE"),
+        
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
             "assets/icons/cart.svg"
+
           ),
           label: "CART"),
        
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            "assets/icons/search.svg"
-          ),
-          label: "SEARCH"),
+        
        
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
@@ -76,3 +67,4 @@ class _CustomerMainScreenState extends State<CustomerMainScreen> {
     );
   }
 }
+
