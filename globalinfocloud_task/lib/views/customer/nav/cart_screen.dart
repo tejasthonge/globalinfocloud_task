@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:globalinfocloud_task/utils/constants.dart';
+
 import 'package:globalinfocloud_task/views/customer/nav/nested_home_product/checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key });  
   // final String userId = auth.currentUser!.uid; // Replace with actual user ID from authentication
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Cart')),
+      appBar: AppBar(title: const Text('Cart')),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('cart')
@@ -18,11 +19,11 @@ class CartScreen extends StatelessWidget {
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No items in the cart'));
+            return const Center(child: Text('No items in the cart'));
           }
 
           List<QueryDocumentSnapshot> cartItems = snapshot.data!.docs;
@@ -47,14 +48,14 @@ class CartScreen extends StatelessWidget {
                           Row(
                             children: [
                               IconButton(
-                                icon: Icon(Icons.remove),
+                                icon: const Icon(Icons.remove),
                                 onPressed: () {
                                   updateCartQuantity(cartItem.id, cartItem['quantity'] - 1);
                                 },
                               ),
                               Text('${cartItem['quantity']}'),
                               IconButton(
-                                icon: Icon(Icons.add),
+                                icon: const Icon(Icons.add),
                                 onPressed: () {
                                   updateCartQuantity(cartItem.id, cartItem['quantity'] + 1);
                                 },
@@ -73,14 +74,14 @@ class CartScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text('Total: \$${totalAmount.toStringAsFixed(2)}'),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_)=>CheckoutScreen())
+                          MaterialPageRoute(builder: (_)=>const CheckoutScreen())
                         );
                       },
-                      child: Text('Proceed to Checkout'),
+                      child: const Text('Proceed to Checkout'),
                     ),
                   ],
                 ),

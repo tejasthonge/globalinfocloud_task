@@ -17,16 +17,16 @@ class _CousomerHomeScreenState extends State<CousomerHomeScreen> {
   Widget build(BuildContext context) {
     final addToCartController = Provider.of<AddToCartController>(context,listen: false);
     return Scaffold(
-      appBar: AppBar(title: Text('Products List')),
+      appBar: AppBar(title: const Text('Products List')),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('products').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No products available'));
+            return const Center(child: Text('No products available'));
           }
 
           List<Product> products = snapshot.data!.docs.map((doc) => Product.fromFirestore(doc)).toList();
@@ -44,9 +44,9 @@ class _CousomerHomeScreenState extends State<CousomerHomeScreen> {
                   );
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                   decoration: BoxDecoration( 
-                    color: Color.fromARGB(255, 252, 243, 243),
+                    color: const Color.fromARGB(255, 252, 243, 243),
                     borderRadius: BorderRadius.circular(5)
                   ),
                   child: ListTile(
@@ -64,14 +64,14 @@ class _CousomerHomeScreenState extends State<CousomerHomeScreen> {
                         addToCartController.addToCart(product);
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 4,horizontal: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 10),
                         decoration: BoxDecoration( 
                   
                           border: Border.all(),
                           borderRadius: BorderRadius.circular(5),
                   
                         ),
-                        child: Text('Add to Cart')),
+                        child: const Text('Add to Cart')),
                     ),
                   ),
                 ),

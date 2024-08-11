@@ -18,11 +18,11 @@ class AccountScreen extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text("Something went wrong"));
+          return const Center(child: Text("Something went wrong"));
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return Center(child: Text("Document does not exist"));
+          return const Center(child: Text("Document does not exist"));
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -34,7 +34,7 @@ class AccountScreen extends StatelessWidget {
               backgroundColor: Colors.transparent,
 
               centerTitle: true,
-              title: Text(
+              title: const Text(
                 "Profile",
                 style: TextStyle(
                     // color: Colors.white,
@@ -50,7 +50,7 @@ class AccountScreen extends StatelessWidget {
             body: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -74,26 +74,26 @@ class AccountScreen extends StatelessWidget {
                       height: 20,
                     ),
                     Text(data["name"],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
 
                     Text(
                       
                       data["email"],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold)),
 
                     // const SizedBox(height: 20,),
 
                     Container(
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         alignment: Alignment.center,
                         width: MediaQuery.of(context).size.width - 200,
                         height: 35,
                         decoration: BoxDecoration(
                             color: Colors.yellow.shade900,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Text(
+                        child: const Text(
                           "Edit  profile",
                           style: TextStyle(
                               color: Colors.white,
@@ -106,21 +106,21 @@ class AccountScreen extends StatelessWidget {
                       height: 20,
                     ),
 
-                    Divider(
+                    const Divider(
                       color: Colors.grey,
                     ),
 
                     // const SizedBox(height: 20,),
 
                     ListTile(
-                      leading: Icon(Icons.settings, color: Colors.grey),
+                      leading: const Icon(Icons.settings, color: Colors.grey),
                       title: Text(
                         "Settings",
                         style: TextStyle(color: Colors.grey.shade700),
                       ),
                     ),
                     ListTile(
-                      leading: Icon(Icons.phone, color: Colors.grey),
+                      leading: const Icon(Icons.phone, color: Colors.grey),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -130,14 +130,14 @@ class AccountScreen extends StatelessWidget {
                           ),
                           Text(
                             data['contactNumber'],
-                            style: TextStyle(fontSize: 10, color: Colors.grey),
+                            style: const TextStyle(fontSize: 10, color: Colors.grey),
                           ),
                         ],
                       ),
                     ),
 
                     ListTile(
-                      leading: Icon(CupertinoIcons.cart_badge_plus,
+                      leading: const Icon(CupertinoIcons.cart_badge_plus,
                           color: Colors.grey),
                       title: Text(
                         "Cart",
@@ -145,7 +145,7 @@ class AccountScreen extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      leading: Icon(Icons.shopping_cart, color: Colors.grey),
+                      leading: const Icon(Icons.shopping_cart, color: Colors.grey),
                       title: Text(
                         "Orders",
                         style: TextStyle(color: Colors.grey.shade700),
@@ -156,23 +156,23 @@ class AccountScreen extends StatelessWidget {
                       onTap: () {
                         showDialog(context: context, builder: (context){
                           return AlertDialog(
-                            title: Text("Are you sure you want to logout?"),
+                            title: const Text("Are you sure you want to logout?"),
                             actions: [
                               TextButton(
-                                child: Text("Cancel"),
+                                child: const Text("Cancel"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
                               ),
                               TextButton(
-                                child: Text("Logout"),
+                                child: const Text("Logout"),
                                 onPressed: () async{
                                   await FirebaseAuth.instance.signOut().whenComplete(() {
                                     EasyLoading.show();
                                      Navigator.of(context).pop();
                                      EasyLoading.dismiss();
                                      Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(builder: (context) => RegistrationScreen() ),
+                                      MaterialPageRoute(builder: (context) => const RegistrationScreen() ),
                                       (Route<dynamic> route) => false
                                      
                                      );

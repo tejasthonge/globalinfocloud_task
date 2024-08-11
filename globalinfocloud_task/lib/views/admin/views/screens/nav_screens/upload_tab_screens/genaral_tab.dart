@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:globalinfocloud_task/views/admin/controllers/vendor_product_conttroller.dart';
-import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
 
 class GeneralTab extends StatefulWidget {
@@ -15,40 +15,33 @@ class GeneralTab extends StatefulWidget {
 class _GeneralTabState extends State<GeneralTab> with AutomaticKeepAliveClientMixin{
   @override
   bool get wantKeepAlive => true;
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _productNameTEC = TextEditingController();
 
   final TextEditingController _productPriseTEC = TextEditingController();
 
-  final TextEditingController _proquctQuantityTEC = TextEditingController();
 
-  String _selectedProductCategory ='';
 
   final TextEditingController _productDiscriptionTEC = TextEditingController();
 
-   List<String> _productCategoryList = <String>[];
+   final List<String> _productCategoryList = <String>[];
    String? sheduledDate;
 
-   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
 
-  String _formateDate(date){
-
-    final formate= DateFormat('dd/MM/yyyy');
-    return formate.format(date);
-  }
 
    _getCategourys()async{
 
     return _firebaseFirestore.collection("Category").get().then((QuerySnapshot querySnapshot) {
 
-      querySnapshot.docs.forEach((doc) { 
+      for (var doc in querySnapshot.docs) { 
 
         setState(() {
           _productCategoryList.add(doc["categoryName"]);
         });
-      });
+      }
     });
 
    }
@@ -66,9 +59,9 @@ class _GeneralTabState extends State<GeneralTab> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
 
-    VendorProductController _vendorProductController = Provider.of<VendorProductController>(context);
+    VendorProductController vendorProductController = Provider.of<VendorProductController>(context);
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -78,9 +71,9 @@ class _GeneralTabState extends State<GeneralTab> with AutomaticKeepAliveClientMi
               TextFormField(
                 controller: _productNameTEC,
                 onChanged: (value) {
-                  _vendorProductController.getFormData(productName: value);
+                  vendorProductController.getFormData(productName: value);
                 },
-                decoration: InputDecoration(labelText: "Enter product name"),
+                decoration: const InputDecoration(labelText: "Enter product name"),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please enter product name";
@@ -94,10 +87,10 @@ class _GeneralTabState extends State<GeneralTab> with AutomaticKeepAliveClientMi
               TextFormField(
                 controller: _productPriseTEC,
                 onChanged: (value) {
-                  _vendorProductController.getFormData(productPrice: double.parse(value));
+                  vendorProductController.getFormData(productPrice: double.parse(value));
                 },
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: "Enter product Price"),
+                decoration: const InputDecoration(labelText: "Enter product Price"),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please enter product price";
@@ -136,7 +129,7 @@ class _GeneralTabState extends State<GeneralTab> with AutomaticKeepAliveClientMi
               TextFormField(
                 controller: _productDiscriptionTEC,
                 onChanged: (value) {
-                  _vendorProductController.getFormData(productDescription: value); //
+                  vendorProductController.getFormData(productDescription: value); //
                 },
                 keyboardType: TextInputType.text,
                 maxLines: 4,

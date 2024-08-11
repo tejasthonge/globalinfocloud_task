@@ -19,11 +19,12 @@ class MainVendorScreen extends StatefulWidget {
 class _MainVendorScreenState extends State<MainVendorScreen> {
     int _pageIndex =0;
 
-   List<Widget> _pages = [
+
+   final List<Widget> _pages = [
     VendorUploadScreen(),
-    VendorEditScreen(),
-    OrdersScreen(),
-    VendorLogotScreen(),
+    const VendorEditScreen(),
+    const OrdersScreen(),
+    const VendorLogotScreen(),
 
    ];
 
@@ -42,7 +43,7 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
       selectedItemColor: Colors.yellow.shade900,
       unselectedItemColor: Colors.black,
       type: BottomNavigationBarType.fixed,
-      items: [
+      items: const [
         
         BottomNavigationBarItem(
           icon: Icon(Icons.upload),

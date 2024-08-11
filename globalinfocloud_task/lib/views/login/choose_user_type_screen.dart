@@ -17,18 +17,18 @@ class ChooseUserScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.push(context, 
-                  MaterialPageRoute(builder: (_)=>MainVendorScreen())
+                  MaterialPageRoute(builder: (_)=>const MainVendorScreen())
                 );
               },
               child: Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width - 30,
                   height: 50,
                   decoration: BoxDecoration(
                       color: Colors.yellow.shade900,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Text(
+                  child: const Text(
                     "Admin",
                     style: TextStyle(
                         color: Colors.white,
@@ -43,14 +43,14 @@ class ChooseUserScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const CustomerMainScreen()));
               },
               child: Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width - 30,
                   height: 50,
                   decoration: BoxDecoration(
                       color: Colors.yellow.shade900,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Text(
+                  child: const Text(
                     "Costomer",
                     style: TextStyle(
                         color: Colors.white,

@@ -20,7 +20,7 @@ class VendorLogotScreen extends StatelessWidget {
                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
               });
           },
-          child: Text( 
+          child: const Text( 
             "Logout"
           ),
         )

@@ -17,19 +17,19 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Customer Orders'),
+        title: const Text('Customer Orders'),
       ),
       body: StreamBuilder<List<OrderModel>>(
         stream: getOrdersStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Error loading orders'));
+            return const Center(child: Text('Error loading orders'));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No orders found'));
+            return const Center(child: Text('No orders found'));
           }
 
           final orders = snapshot.data!;
@@ -46,13 +46,13 @@ class OrdersScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.check, color: Colors.green),
+                        icon: const Icon(Icons.check, color: Colors.green),
                         onPressed: () {
                           _updateOrderStatus(order.orderId, 'Accepted');
                         },
                       ),
                       IconButton(
-                        icon: Icon(Icons.close, color: Colors.red),
+                        icon: const Icon(Icons.close, color: Colors.red),
                         onPressed: () {
                           _updateOrderStatus(order.orderId, 'Rejected');
                         },
@@ -83,7 +83,7 @@ class OrdersScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Order Details'),
+          title: const Text('Order Details'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -95,7 +95,7 @@ class OrdersScreen extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Close'),
+              child: const Text('Close'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

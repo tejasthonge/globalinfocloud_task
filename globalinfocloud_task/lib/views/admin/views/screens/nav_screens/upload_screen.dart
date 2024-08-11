@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,17 +15,17 @@ import 'package:uuid/uuid.dart';
 class VendorUploadScreen extends StatelessWidget {
   VendorUploadScreen({super.key});
 
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  GlobalKey<FormState> _globalFormKey = new GlobalKey<FormState>();
-  List<Widget> _tabsList = <Widget>[
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final GlobalKey<FormState> _globalFormKey = GlobalKey<FormState>();
+  final List<Widget> _tabsList = <Widget>[
     //bellow are screen of respective tabs
-    GeneralTab(),
-    ImageTab()
+    const GeneralTab(),
+    const ImageTab()
   ];
 
   @override
   Widget build(BuildContext context) {
-    VendorProductController _vendorProductController =
+    VendorProductController vendorProductController =
         Provider.of<VendorProductController>(context);
     return DefaultTabController(
       length: 2,
@@ -34,13 +36,13 @@ class VendorUploadScreen extends StatelessWidget {
             elevation: 1,
             backgroundColor: Colors.yellow.shade900,
             foregroundColor: Colors.white,
-            title: Text("Upload Product"),
+            title: const Text("Upload Product"),
             bottom: TabBar(
               unselectedLabelColor: Colors.white38,
               indicatorColor: Colors.white,
               indicatorSize: TabBarIndicatorSize.label,
               labelColor: Colors.white,
-              tabs: [
+              tabs: const [
                 Tab(
                   child: Text(
                     "General",
@@ -70,26 +72,26 @@ class VendorUploadScreen extends StatelessWidget {
             onTap: () async {
               if (_globalFormKey.currentState!.validate() ) {
                 EasyLoading.show();
-                final productId = Uuid().v4();
-                _vendorProductController.getFormData(productId: productId);
+                final productId = const Uuid().v4();
+                vendorProductController.getFormData(productId: productId);
                 await _firebaseFirestore
                     .collection('products')
                     .doc(productId)
-                    .set(_vendorProductController.productData);
+                    .set(vendorProductController.productData);
                     
-                   print(_vendorProductController.productData.toString());
+                   print(vendorProductController.productData.toString());
 
-                    _vendorProductController.productData.clear();
+                    vendorProductController.productData.clear();
                   EasyLoading.showSuccess("Product is added successfully!");
                   EasyLoading.dismiss();
 
               }else{
                 getMySnakBar(context: context, masage: "Please add the product details");
               }
-              print(_vendorProductController.productData.toString());
+              print(vendorProductController.productData.toString());
             },
             child: Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width - 30,
               height: 40,
@@ -97,7 +99,7 @@ class VendorUploadScreen extends StatelessWidget {
                   color: Colors.yellow.shade900,
                   borderRadius: BorderRadius.circular(6)),
               child: true
-                  ? Text(
+                  ? const Text(
                       "Save",
                       style: TextStyle(
                           color: Colors.white,
@@ -105,8 +107,9 @@ class VendorUploadScreen extends StatelessWidget {
                           letterSpacing: 2,
                           fontWeight: FontWeight.bold),
                     )
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
+                  // ignore: dead_code
+                  : const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Center(
                         child: CircularProgressIndicator(
                           color: Colors.white,

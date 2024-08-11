@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,20 +20,20 @@ class ImageTab extends StatefulWidget {
 class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   final ImagePicker _picker = ImagePicker();
   final List<File> _imageFilesList = <File>[];
   final List<String> _imageUrlsList = <String>[];
 
   _choosImage() async {
-    final _pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    final pickedImage = await _picker.pickImage(source: ImageSource.gallery);
 
-    if (_pickedImage != null) {
+    if (pickedImage != null) {
       setState(() {
-        _imageFilesList.add(File(_pickedImage.path));
+        _imageFilesList.add(File(pickedImage.path));
       });
     } else {
+      // ignore: use_build_context_synchronously
       getMySnakBar(context: context, masage: "Please select an image");
     }
   }
@@ -42,7 +42,7 @@ class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin 
   Widget build(BuildContext context) {
     super.build(context);
 
-    VendorProductController _vendorProductController = Provider.of<VendorProductController>(context);
+    VendorProductController vendorProductController = Provider.of<VendorProductController>(context);
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -50,7 +50,7 @@ class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin 
           GridView.builder(
               shrinkWrap: true,
               itemCount: _imageFilesList.length + 1,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 3,
                 mainAxisSpacing: 8,
@@ -62,7 +62,7 @@ class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin 
                         onPressed: () {
                           _choosImage();
                         },
-                        icon: Icon(Icons.add_a_photo_rounded))
+                        icon: const Icon(Icons.add_a_photo_rounded))
                     : Container(
                         width: 90,
                         height: 90,
@@ -84,7 +84,7 @@ class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin 
                   EasyLoading.show(status: "Saving the image...");
                   for (var img in _imageFilesList) {
                     Reference ref =
-                        _storage.ref().child("ProductImage").child(Uuid().v4());
+                        _storage.ref().child("ProductImage").child(const Uuid().v4());
                     await ref.putFile(img).then((value) async {
                       await value.ref.getDownloadURL().then((value) {
                         setState(() {
@@ -95,7 +95,7 @@ class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin 
                     });
                   }
                   setState(() {
-                     _vendorProductController.getFormData(
+                     vendorProductController.getFormData(
                               imagUrlList: _imageUrlsList);
                         
                       EasyLoading.showSuccess(
@@ -108,8 +108,8 @@ class _ImageTabState extends State<ImageTab> with AutomaticKeepAliveClientMixin 
                 }
               },
               child: _imageFilesList.isNotEmpty
-                  ? Text("Upload")
-                  : Text("Please select an image file"))
+                  ? const Text("Upload")
+                  : const Text("Please select an image file"))
         ],
       ),
     );

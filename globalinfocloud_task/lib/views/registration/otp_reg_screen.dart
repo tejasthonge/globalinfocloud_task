@@ -1,25 +1,27 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:globalinfocloud_task/models/customer.dart';
-import 'package:globalinfocloud_task/services/firebase_auth_service.dart';
+
 import 'package:globalinfocloud_task/utils/constants.dart';
 import 'package:globalinfocloud_task/utils/widget_comman.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
+
   final String verificationId;
   final String phoneNumber;
   final Customer customer;
   const OTPVerificationScreen({
-    Key? key,
+    super.key,
     required this.verificationId,
     required this.phoneNumber,
     required this.customer,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
 }
 
@@ -50,7 +52,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Verify OTP'),
+        title: const Text('Verify OTP'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -95,7 +97,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
                 
               },
-              child: Text('Verify'),
+              child: const Text('Verify'),
             ),
           ],
         ),

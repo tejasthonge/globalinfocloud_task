@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:globalinfocloud_task/utils/constants.dart';
+
+
 import 'package:globalinfocloud_task/utils/widget_comman.dart';
 import 'package:globalinfocloud_task/views/registration/otp_reg_screen.dart';
 import '../models/customer.dart';
 import '../services/api_service.dart';
-import '../services/firebase_auth_service.dart';
+
 
 
 class RegistrationController {
@@ -20,12 +20,15 @@ class RegistrationController {
   Future<void> registerCustomer(BuildContext context, Customer customer) async {
 
     if(await isAlreadyRegistered(phoneNumber: customer.contactNumber)){
+      // ignore: use_build_context_synchronously
       getMySnakBar(context: context, masage: "Your Mobile Number already registered");
+      // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, "/login");
     }else{
         var cityState = await ApiService.getCityState(customer.pinCode);
     if (cityState['city']!.toLowerCase() != customer.city.toLowerCase() && cityState['state']!.toLowerCase() != customer.state.toLowerCase()) {
       log("City and State do not match with pin code");
+      // ignore: use_build_context_synchronously
       getMySnakBar(context: context, masage: "City and State do not match with pin code");
       throw Exception('City and State do not match with pin code');
     }
@@ -74,7 +77,7 @@ Future<bool> isAlreadyRegistered({required String phoneNumber}) async {
 
       return querySnapshot.docs.isNotEmpty;
     } catch (e) {
-      print("Error checking registration status: $e");
+      log("Error checking registration status: $e");
       return false;
     }
   }

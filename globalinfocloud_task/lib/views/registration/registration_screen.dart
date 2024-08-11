@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:globalinfocloud_task/controllers/registration_controller.dart';
 import 'package:globalinfocloud_task/models/customer.dart';
 import 'package:globalinfocloud_task/providers/registration_provider.dart';
 import 'package:globalinfocloud_task/utils/widget_comman.dart';
@@ -15,6 +14,7 @@ class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
@@ -44,6 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Future<String> _extractTextFromImage(File image) async {
     final inputImage = InputImage.fromFile(image);
+    // ignore: deprecated_member_use
     final textRecognizer = GoogleMlKit.vision.textRecognizer();
     final RecognizedText recognizedText =
         await textRecognizer.processImage(inputImage);
@@ -66,7 +67,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (_formKey.currentState!.validate()) {
       if (_addressProofImage == null) {
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Please select an address proof document.')));
         return;
       }
@@ -104,17 +105,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Registration'),
+        title: const Text('Registration'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your name' : null,
               ),
@@ -125,7 +126,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               TextFormField(
                 controller: _contactController,
                 keyboardType: TextInputType.number,
-                scrollPadding: EdgeInsets.only(left: 10, top: 1, bottom: 1),
+                scrollPadding: const EdgeInsets.only(left: 10, top: 1, bottom: 1),
                 decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 15.0,right: 10),
@@ -174,53 +175,53 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email ID'),
+                decoration: const InputDecoration(labelText: 'Email ID'),
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your email' : null,
               ),
               TextFormField(
                 controller: _pinCodeController,
-                decoration: InputDecoration(labelText: 'Pin Code'),
+                decoration: const InputDecoration(labelText: 'Pin Code'),
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your pin code' : null,
               ),
               TextFormField(
                 controller: _stateController,
-                decoration: InputDecoration(labelText: 'State'),
+                decoration: const InputDecoration(labelText: 'State'),
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your state' : null,
               ),
               TextFormField(
                 controller: _cityController,
-                decoration: InputDecoration(labelText: 'City'),
+                decoration: const InputDecoration(labelText: 'City'),
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your city' : null,
               ),
               TextFormField(
                 controller: _addressController,
-                decoration: InputDecoration(labelText: 'Address'),
+                decoration: const InputDecoration(labelText: 'Address'),
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your address' : null,
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter a password' : null,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextButton(
                 onPressed: _pickImage,
-                child: Text('Upload Address Proof'),
+                child: const Text('Upload Address Proof'),
               ),
               _addressProofImage == null
-                  ? Text('No image selected.')
+                  ? const Text('No image selected.')
                   : Image.file(_addressProofImage!),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _register,
-                child: Text('Register'),
+                child: const Text('Register'),
               ),
             ],
           ),

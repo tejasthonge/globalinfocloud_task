@@ -1,9 +1,13 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:globalinfocloud_task/views/admin/models/orders_model.dart';
 
 class CheckoutScreen extends StatefulWidget {
+  const CheckoutScreen({super.key});
+
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
@@ -28,7 +32,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Checkout')),
+      appBar: AppBar(title: const Text('Checkout')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -37,7 +41,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             children: [
               TextFormField(
                 controller: addressController,
-                decoration: InputDecoration(labelText: 'Shipping Address'),
+                decoration: const InputDecoration(labelText: 'Shipping Address'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your shipping address';
@@ -47,7 +51,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               TextFormField(
                 controller: contactController,
-                decoration: InputDecoration(labelText: 'Contact Number'),
+                decoration: const InputDecoration(labelText: 'Contact Number'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your contact number';
@@ -57,7 +61,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               TextFormField(
                 controller: deliveryDateController,
-                decoration: InputDecoration(labelText: 'Delivery Date'),
+                decoration: const InputDecoration(labelText: 'Delivery Date'),
                 readOnly: true,
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
@@ -82,7 +86,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               TextFormField(
                 controller: deliveryTimeController,
-                decoration: InputDecoration(labelText: 'Delivery Time'),
+                decoration: const InputDecoration(labelText: 'Delivery Time'),
                 readOnly: true,
                 onTap: () async {
                   TimeOfDay? pickedTime = await showTimePicker(
@@ -102,10 +106,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               DropdownButtonFormField<String>(
                 value: paymentMethod,
-                decoration: InputDecoration(labelText: 'Payment Method'),
+                decoration: const InputDecoration(labelText: 'Payment Method'),
                 items: ['Online', 'Pay on Delivery'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -118,7 +122,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -129,7 +133,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     }
                   }
                 },
-                child: Text('Place Order'),
+                child: const Text('Place Order'),
               ),
             ],
           ),
@@ -144,15 +148,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Payment'),
-          content: Text('Processing payment...'),
+          title: const Text('Payment'),
+          content: const Text('Processing payment...'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _placeOrder();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -197,19 +201,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       'userId': order.userId,
     });
 
-    // Show confirmation message and navigate back or to an order summary screen
+
     showDialog(
+      // ignore: use_build_context_synchronously
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Order Placed'),
-          content: Text('Your order has been placed successfully!'),
+          title: const Text('Order Placed'),
+          content: const Text('Your order has been placed successfully!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );

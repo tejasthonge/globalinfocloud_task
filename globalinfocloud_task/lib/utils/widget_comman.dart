@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           elevation: 10,
           backgroundColor: Colors.yellow.shade900,
           content: Text(masage)),

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +10,7 @@ class VendorEditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Products'),
+        title: const Text('Edit Products'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('products').snapshots(),
@@ -18,11 +20,11 @@ class VendorEditScreen extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No products available'));
+            return const Center(child: Text('No products available'));
           }
 
           return ListView(
@@ -31,7 +33,7 @@ class VendorEditScreen extends StatelessWidget {
                 title: Text(doc['productName']),
                 subtitle: Text('Price: \$${doc['productPrice']}'),
                 trailing: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -52,7 +54,7 @@ class VendorEditScreen extends StatelessWidget {
 class EditProductScreen extends StatefulWidget {
   final String productId;
 
-  EditProductScreen({required this.productId});
+  const EditProductScreen({super.key, required this.productId});
 
   @override
   _EditProductScreenState createState() => _EditProductScreenState();
@@ -105,7 +107,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Product updated successfully!')),
+        const SnackBar(content: Text('Product updated successfully!')),
       );
 
       Navigator.of(context).pop();
@@ -116,7 +118,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Product'),
+        title: const Text('Edit Product'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -126,7 +128,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Product Name'),
+                decoration: const InputDecoration(labelText: 'Product Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the product name';
@@ -136,7 +138,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               ),
               TextFormField(
                 controller: descriptionController,
-                decoration: InputDecoration(labelText: 'Product Description'),
+                decoration: const InputDecoration(labelText: 'Product Description'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the product description';
@@ -146,7 +148,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               ),
               TextFormField(
                 controller: priceController,
-                decoration: InputDecoration(labelText: 'Product Price'),
+                decoration: const InputDecoration(labelText: 'Product Price'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -160,7 +162,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               ),
               TextFormField(
                 controller: imageUrlController,
-                decoration: InputDecoration(labelText: 'Product Image URL'),
+                decoration: const InputDecoration(labelText: 'Product Image URL'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the product image URL';
@@ -168,10 +170,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _saveProductDetails,
-                child: Text('Save'),
+                child: const Text('Save'),
               ),
             ],
           ),

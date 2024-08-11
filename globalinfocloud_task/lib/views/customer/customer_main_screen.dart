@@ -15,15 +15,11 @@ class CustomerMainScreen extends StatefulWidget {
 class _CustomerMainScreenState extends State<CustomerMainScreen> {
    int _pageIndex =0;
 
-   List<Widget> _pages = [
-    CousomerHomeScreen(),
-    CartScreen(),
-    AccountScreen(),
-    // CategoryScreen(),
-    // StoreScreen(),
-    // CartScreen(),
-    // SearchScreen(),
-    // AccountScreen()
+   final List<Widget> _pages = [
+    const CousomerHomeScreen(),
+    const CartScreen(),
+    const AccountScreen(),
+
    ];
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class _CustomerMainScreenState extends State<CustomerMainScreen> {
       selectedItemColor: Colors.yellow.shade900,
       unselectedItemColor: Colors.black,
       items: [
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.home),
           label: "HOME"),
         

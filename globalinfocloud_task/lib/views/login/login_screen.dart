@@ -4,7 +4,10 @@ import 'package:provider/provider.dart';
 import '../../providers/login_provider.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -30,10 +33,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -41,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: _contactNumberController,
                 keyboardType: TextInputType.number,
-                scrollPadding: EdgeInsets.only(left: 10, top: 1, bottom: 1),
+                scrollPadding: const EdgeInsets.only(left: 10, top: 1, bottom: 1),
                 decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 15.0,right: 10),
@@ -90,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -101,13 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               ElevatedButton(
                 onPressed: _login,
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/');
                 },
-                child: Text('Don\'t have an account? Register'),
+                child: const Text('Don\'t have an account? Register'),
               ),
             ],
           ),
