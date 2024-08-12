@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:globalinfocloud_task/utils/constants.dart';
 
 import 'package:globalinfocloud_task/views/customer/nav/nested_home_product/checkout_screen.dart';
 
@@ -14,7 +15,7 @@ class CartScreen extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('cart')
-            .doc("2l5KPbYazgf5BvOeMkb5vLf4sRe2")
+            .doc(auth.currentUser!.uid)
             .collection('items')
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -97,14 +98,14 @@ class CartScreen extends StatelessWidget {
     if (quantity > 0) {
       FirebaseFirestore.instance
           .collection('cart')
-          .doc("2l5KPbYazgf5BvOeMkb5vLf4sRe2")
+          .doc(auth.currentUser!.uid)
           .collection('items')
           .doc(productId)
           .update({'quantity': quantity});
     } else {
       FirebaseFirestore.instance
           .collection('cart')
-          .doc("2l5KPbYazgf5BvOeMkb5vLf4sRe2")
+          .doc(auth.currentUser?.uid)
           .collection('items')
           .doc(productId)
           .delete();

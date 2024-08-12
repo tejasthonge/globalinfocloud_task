@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:globalinfocloud_task/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:globalinfocloud_task/views/admin/models/orders_model.dart';
 
@@ -21,7 +22,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final TextEditingController deliveryTimeController = TextEditingController();
 
   String paymentMethod = 'Online';
-  String userId = 'user123'; // Replace with actual user ID
+  String userId = auth.currentUser!.uid;
   String orderId = FirebaseFirestore.instance.collection('orders').doc().id; // Generate a unique order ID
 
   @override

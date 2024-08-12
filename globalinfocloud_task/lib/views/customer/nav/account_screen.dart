@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:globalinfocloud_task/utils/constants.dart';
 import 'package:globalinfocloud_task/views/registration/registration_screen.dart';
 
 
@@ -14,7 +15,7 @@ class AccountScreen extends StatelessWidget {
     CollectionReference userBuyers =
         FirebaseFirestore.instance.collection("users");
     return FutureBuilder<DocumentSnapshot>(
-      future: userBuyers.doc("2l5KPbYazgf5BvOeMkb5vLf4sRe2").get(),
+      future: userBuyers.doc(auth.currentUser?.uid).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
