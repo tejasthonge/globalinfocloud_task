@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:globalinfocloud_task/models/product.dart';
 import 'package:globalinfocloud_task/utils/constants.dart';
 
 import 'package:globalinfocloud_task/views/customer/nav/nested_home_product/checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key });  
-  // final String userId = auth.currentUser!.uid; // Replace with actual user ID from authentication
+  const CartScreen({super.key });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class CartScreen extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('cart')
-            .doc(auth.currentUser!.uid)
+            .doc(auth.currentUser?.uid) // Null check added here
             .collection('items')
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -78,9 +78,23 @@ class CartScreen extends StatelessWidget {
                     const SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_)=>const CheckoutScreen())
-                        );
+                        // Fetch the first item details
+                        var firstItem = cartItems.isNotEmpty ? cartItems[0] : null;
+                        if (firstItem != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => CheckoutScreen(
+                                product: Product(
+                                  id: firstItem['productId'],
+                                  name: firstItem['productName'],
+                                  description: firstItem['productDescription'],
+                                  price: firstItem['productPrice'],
+                                  imageUrlList: List<String>.from(firstItem['imagUrlList']),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
                       },
                       child: const Text('Proceed to Checkout'),
                     ),
@@ -98,7 +112,7 @@ class CartScreen extends StatelessWidget {
     if (quantity > 0) {
       FirebaseFirestore.instance
           .collection('cart')
-          .doc(auth.currentUser!.uid)
+          .doc(auth.currentUser?.uid)
           .collection('items')
           .doc(productId)
           .update({'quantity': quantity});

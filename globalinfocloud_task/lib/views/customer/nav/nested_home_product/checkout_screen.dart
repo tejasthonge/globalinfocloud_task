@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:globalinfocloud_task/models/product.dart';
 import 'package:globalinfocloud_task/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:globalinfocloud_task/views/admin/models/orders_model.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  const CheckoutScreen({super.key});
+  final Product product;
+  const CheckoutScreen({super.key, required this.product});
 
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
@@ -170,10 +172,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     OrderModel order = OrderModel(
       orderId: orderId,
       customerId: userId,
-      productId: "productId", // Replace with actual product ID
-      productName: "productName", // Replace with actual product name
-      quantity: 1, // Replace with actual quantity
-      totalPrice: 100.0, // Replace with actual total price
+      productId: widget.product.id, 
+      productName: widget.product.name,
+      quantity: 1, 
+      totalPrice: widget.product.price, 
       status: "Pending",
       address: addressController.text,
       contactNumber: contactController.text,

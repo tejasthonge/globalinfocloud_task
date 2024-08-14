@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:globalinfocloud_task/utils/constants.dart';
+import 'package:globalinfocloud_task/views/customer/nav/cart_screen.dart';
+import 'package:globalinfocloud_task/views/customer/nav/nested_home_product/orders.dart';
 import 'package:globalinfocloud_task/views/registration/registration_screen.dart';
 
 
@@ -138,6 +140,11 @@ class AccountScreen extends StatelessWidget {
                     ),
 
                     ListTile(
+                        onTap: (){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>const  CartScreen(),)
+                        );
+                      },
                       leading: const Icon(CupertinoIcons.cart_badge_plus,
                           color: Colors.grey),
                       title: Text(
@@ -146,6 +153,11 @@ class AccountScreen extends StatelessWidget {
                       ),
                     ),
                     ListTile(
+                      onTap: (){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>const  UserOrdersScreen(),)
+                        );
+                      },
                       leading: const Icon(Icons.shopping_cart, color: Colors.grey),
                       title: Text(
                         "Orders",

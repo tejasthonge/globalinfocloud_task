@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:globalinfocloud_task/utils/constants.dart';
 import 'package:globalinfocloud_task/views/admin/models/orders_model.dart';
 
-class OrdersScreen extends StatelessWidget {
-  const OrdersScreen({super.key});
+class UserOrdersScreen extends StatelessWidget {
+  const UserOrdersScreen({super.key});
 
-  Stream<List<OrderModel>> getOrdersStream() {
+  Stream<List<OrderModel>> getUserOrdersStream(String userId) {
     return FirebaseFirestore.instance
         .collection('orders')
+        .where('userId', isEqualTo: userId)
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => OrderModel.fromFirestore(doc)).toList());
@@ -15,12 +17,14 @@ class OrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String userId = auth.currentUser!.uid;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Customer Orders'),
+        title: const Text('My Orders'),
       ),
       body: StreamBuilder<List<OrderModel>>(
-        stream: getOrdersStream(),
+        stream: getUserOrdersStream(userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -41,34 +45,24 @@ class OrdersScreen extends StatelessWidget {
               return Card(
                 child: ListTile(
                   title: Text(order.productName),
-                  subtitle: Text('Total: \$${order.totalPrice}'),
-                  trailing: order.status == 'Pending'
-                      ? Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.check, color: Colors.green),
-                              onPressed: () {
-                                _updateOrderStatus(order.orderId, 'Accepted');
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.close, color: Colors.red),
-                              onPressed: () {
-                                _updateOrderStatus(order.orderId, 'Rejected');
-                              },
-                            ),
-                          ],
-                        )
-                      : Text(
-                          order.status,
-                          style: TextStyle(
-                            color: order.status == 'Accepted'
-                                ? Colors.green
-                                : Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Quantity: ${order.quantity}'),
+                      Text('Total: \$${order.totalPrice.toStringAsFixed(2)}'),
+                      Text(
+                        'Status: ${order.status}',
+                        style: TextStyle(
+                          color: order.status == 'Accepted'
+                              ? Colors.green
+                              : order.status == 'Rejected'
+                                  ? Colors.red
+                                  : Colors.orange,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                    ],
+                  ),
                   onTap: () {
                     _showOrderDetails(context, order);
                   },
@@ -79,13 +73,6 @@ class OrdersScreen extends StatelessWidget {
         },
       ),
     );
-  }
-
-  void _updateOrderStatus(String orderId, String status) {
-    FirebaseFirestore.instance
-        .collection('orders')
-        .doc(orderId)
-        .update({'status': status});
   }
 
   void _showOrderDetails(BuildContext context, OrderModel order) {
@@ -99,8 +86,10 @@ class OrdersScreen extends StatelessWidget {
             children: [
               Text('Product: ${order.productName}'),
               Text('Quantity: ${order.quantity}'),
-              Text('Total Price: \$${order.totalPrice}'),
+              Text('Total Price: \$${order.totalPrice.toStringAsFixed(2)}'),
               Text('Status: ${order.status}'),
+              Text('Delivery Date: ${order.deliveryDate}'),
+              Text('Delivery Time: ${order.deliveryTime}'),
             ],
           ),
           actions: <Widget>[
